@@ -1,2 +1,1 @@
-document.querySelector(".container").innerHTML =
-  "<div>Hello from Webpack </div>";
+document.querySelector(".container").innerHTML="<div>Hello from Webpack </div>";
