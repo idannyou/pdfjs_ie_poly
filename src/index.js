@@ -1,5 +1,3 @@
-import * as pdfjsLib from "./pdfjs";
-
 (function () {
   let currentPageIndex = 0;
   let pageMode = 1;
@@ -13,7 +11,6 @@ import * as pdfjsLib from "./pdfjs";
       pdfInstance = pdf;
       totalPagesCount = pdf.numPages;
       initPager();
-      initPageMode();
       render();
     });
   };
@@ -53,14 +50,6 @@ import * as pdfjsLib from "./pdfjs";
     pageMode = Number(event.target.value);
     render();
   }
-  function initPageMode() {
-    const input = document.querySelector("#page-mode input");
-    input.setAttribute("max", totalPagesCount);
-    input.addEventListener("change", onPageModeChange);
-    return () => {
-      input.removeEventListener("change", onPageModeChange);
-    };
-  }
 
   function render() {
     cursorIndex = Math.floor(currentPageIndex / pageMode);
@@ -78,26 +67,24 @@ import * as pdfjsLib from "./pdfjs";
     Promise.all(renderPagesPromises).then((pages) => {
       const pagesHTML = `<div style="width: ${
         pageMode > 1 ? "50%" : "100%"
-      }"><canvas></canvas></div>`.repeat(pages.length);
+      }"><canvas id="the-canvas"></canvas></div>`.repeat(pages.length);
       viewport.innerHTML = pagesHTML;
       pages.forEach(renderPage);
     });
   }
 
   function renderPage(page) {
-    let pdfViewport = page.getViewport(1);
+    var scale = 1;
+    var viewport = page.getViewport({ scale: scale });
+    var canvas = document.getElementById("the-canvas");
+    var context = canvas.getContext("2d");
+    canvas.height = viewport.height;
+    canvas.width = viewport.width;
 
-    const container =
-      viewport.children[page.pageIndex - cursorIndex * pageMode];
-    pdfViewport = page.getViewport(container.offsetWidth / pdfViewport.width);
-    const canvas = container.children[0];
-    const context = canvas.getContext("2d");
-    canvas.height = pdfViewport.height;
-    canvas.width = pdfViewport.width;
-
-    page.render({
+    var renderContext = {
       canvasContext: context,
-      viewport: pdfViewport,
-    });
+      viewport: viewport,
+    };
+    page.render(renderContext);
   }
 })();
