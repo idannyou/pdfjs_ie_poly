@@ -1,6 +1,27 @@
+<!DOCTYPE html>
 <html>
   <head>
-    <p>TEST</p>
+    <title>PDF Viewer PDF.js</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="./styles.css" />
   </head>
-  <script src="./main.js"></script>
+
+  <body>
+    <div id="app">
+      <div role="toolbar" id="toolbar">
+        <div id="pager">
+          <button data-pager="prev">prev</button>
+          <button data-pager="next">next</button>
+        </div>
+        <div id="page-mode">
+          <label>Page Mode <input type="number" value="1" min="1" /></label>
+        </div>
+      </div>
+      <div id="viewport-container"><div role="main" id="viewport"></div></div>
+    </div>
+    <script src="dist/main.js"></script>
+    <script>
+      window.initPDFViewer("assets/example.pdf");
+    </script>
+  </body>
 </html>
