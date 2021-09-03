@@ -9,7 +9,6 @@ import * as pdfjsLib from "./pdfjs";
 
   const viewport = document.querySelector("#viewport");
   window.initPDFViewer = function (pdfURL) {
-    console.log({ pdfjsLib, doc: pdfjsLib.getDocument(pdfURL) });
     pdfjsLib.getDocument(pdfURL).promise.then((pdf) => {
       pdfInstance = pdf;
       totalPagesCount = pdf.numPages;
