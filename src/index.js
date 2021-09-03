@@ -1,3 +1,7 @@
+import * as pdfjsLib from "pdfjs-dist/webpack";
+
+console.log({ pdfjsLib });
+
 (function () {
   let currentPageIndex = 0;
   let pageMode = 1;
