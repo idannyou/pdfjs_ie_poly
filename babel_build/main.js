@@ -9,7 +9,7 @@
 
   var viewport = document.querySelector("#viewport");
   window.initPDFViewer = function (pdfURL) {
-    pdfjsLib.getDocument(pdfURL).promise.then(function (pdf) {
+    window.pdfjsLib.getDocument(pdfURL).promise.then(function (pdf) {
       pdfInstance = pdf;
       totalPagesCount = pdf.numPages;
       initPager();

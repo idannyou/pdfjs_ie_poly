@@ -20,7 +20,7 @@
  * Javascript code in this page
  */
 
-(function webpackUniversalModuleDefinition(root, factory) {
+(function webpackUniversalModuleDefinition(root = window, factory) {
   if (typeof exports === "object" && typeof module === "object")
     module.exports = factory();
   else if (typeof define === "function" && define.amd)
