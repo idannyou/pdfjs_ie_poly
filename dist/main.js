@@ -1,3 +1,5 @@
+import * as pdfjsLib from "./legacy.pdf";
+
 (function () {
   let currentPageIndex = 0;
   let pageMode = 1;
@@ -7,7 +9,7 @@
 
   const viewport = document.querySelector("#viewport");
   window.initPDFViewer = function (pdfURL) {
-    window.pdfjsLib.getDocument(pdfURL).promise.then((pdf) => {
+    pdfjsLib.getDocument(pdfURL).promise.then((pdf) => {
       pdfInstance = pdf;
       totalPagesCount = pdf.numPages;
       initPager();
