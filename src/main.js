@@ -1,7 +1,6 @@
-import "core-js";
-import "regenerator-runtime/runtime";
-import "./legacy.pdf.worker";
-import "./legacy.pdf";
+import pdfjsLib from "./pdf";
+
+window.pdfjsLib = pdfjsLib;
 
 (function () {
   let currentPageIndex = 0;
@@ -12,7 +11,7 @@ import "./legacy.pdf";
 
   const viewport = document.querySelector("#viewport");
   window.initPDFViewer = function (pdfURL) {
-    window.pdfjsLib.getDocument(pdfURL).promise.then((pdf) => {
+    pdfjsLib.getDocument(pdfURL).promise.then((pdf) => {
       pdfInstance = pdf;
       totalPagesCount = pdf.numPages;
       initPager();

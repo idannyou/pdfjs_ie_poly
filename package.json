@@ -18,11 +18,15 @@
     "core-js": "^2.6.12",
     "regenerator-runtime": "^0.10.5",
     "webpack": "^4.46.0",
-    "webpack-cli": "^4.8.0"
+    "webpack-cli": "^4.8.0",
+    "worker-loader": "^3.0.8"
   },
   "browser": {
     "fs": false,
     "path": false,
     "os": false
+  },
+  "dependencies": {
+    "pdfjs-dist": "^2.9.359"
   }
 }

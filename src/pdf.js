@@ -1,10 +1,9 @@
-import * as pdfjs from "./legacy.pdf";
-import pdfjsWorker from "./legacy.pdf.worker";
+import * as pdfjs from "pdfjs-dist/legacy/build/pdf.js";
+
+const Worker = require("worker-loader?esModule=false&filename=[name].js!./pdf.worker.js");
 
 if (typeof window !== "undefined" && "Worker" in window) {
-  pdfjs.GlobalWorkerOptions.workerPort = new pdfjsWorker();
+  pdfjs.GlobalWorkerOptions.workerPort = new Worker();
 }
-
-console.log({ pdfjs });
 
 export default pdfjs;
