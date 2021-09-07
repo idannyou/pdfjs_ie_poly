@@ -1,17 +1,15 @@
-import * as pdfjsLib from "pdfjs-dist/webpack";
-
-console.log({ pdfjsLib });
+"use strict";
 
 (function () {
-  let currentPageIndex = 0;
-  let pageMode = 1;
-  let cursorIndex = Math.floor(currentPageIndex / pageMode);
-  let pdfInstance = null;
-  let totalPagesCount = 0;
+  var currentPageIndex = 0;
+  var pageMode = 1;
+  var cursorIndex = Math.floor(currentPageIndex / pageMode);
+  var pdfInstance = null;
+  var totalPagesCount = 0;
 
-  const viewport = document.querySelector("#viewport");
+  var viewport = document.querySelector("#viewport");
   window.initPDFViewer = function (pdfURL) {
-    pdfjsLib.getDocument(pdfURL).promise.then((pdf) => {
+    window.pdfjsLib.getDocument(pdfURL).promise.then(function (pdf) {
       pdfInstance = pdf;
       totalPagesCount = pdf.numPages;
       initPager();
@@ -20,7 +18,7 @@ console.log({ pdfjsLib });
   };
 
   function onPagerButtonsClick(event) {
-    const action = event.target.getAttribute("data-pager");
+    var action = event.target.getAttribute("data-pager");
     if (action === "prev") {
       if (currentPageIndex === 0) {
         return;
@@ -43,9 +41,9 @@ console.log({ pdfjsLib });
     }
   }
   function initPager() {
-    const pager = document.querySelector("#pager");
+    var pager = document.querySelector("#pager");
     pager.addEventListener("click", onPagerButtonsClick);
-    return () => {
+    return function () {
       pager.removeEventListener("click", onPagerButtonsClick);
     };
   }
@@ -57,21 +55,16 @@ console.log({ pdfjsLib });
 
   function render() {
     cursorIndex = Math.floor(currentPageIndex / pageMode);
-    const startPageIndex = cursorIndex * pageMode;
-    const endPageIndex =
-      startPageIndex + pageMode < totalPagesCount
-        ? startPageIndex + pageMode - 1
-        : totalPagesCount - 1;
+    var startPageIndex = cursorIndex * pageMode;
+    var endPageIndex = startPageIndex + pageMode < totalPagesCount ? startPageIndex + pageMode - 1 : totalPagesCount - 1;
 
-    const renderPagesPromises = [];
-    for (let i = startPageIndex; i <= endPageIndex; i++) {
+    var renderPagesPromises = [];
+    for (var i = startPageIndex; i <= endPageIndex; i++) {
       renderPagesPromises.push(pdfInstance.getPage(i + 1));
     }
 
-    Promise.all(renderPagesPromises).then((pages) => {
-      const pagesHTML = `<div style="width: ${
-        pageMode > 1 ? "50%" : "100%"
-      }"><canvas id="the-canvas"></canvas></div>`.repeat(pages.length);
+    Promise.all(renderPagesPromises).then(function (pages) {
+      var pagesHTML = ("<div style=\"width: " + (pageMode > 1 ? "50%" : "100%") + "\"><canvas id=\"the-canvas\"></canvas></div>").repeat(pages.length);
       viewport.innerHTML = pagesHTML;
       pages.forEach(renderPage);
     });
@@ -87,7 +80,7 @@ console.log({ pdfjsLib });
 
     var renderContext = {
       canvasContext: context,
-      viewport: viewport,
+      viewport: viewport
     };
     page.render(renderContext);
   }
