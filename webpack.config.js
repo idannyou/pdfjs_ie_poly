@@ -30,9 +30,7 @@ module.exports = {
   module: {
     rules: [
       {
-        // Only run `.js` files through Babel
         test: /\.m?js$/,
-        exclude: /(node_modules)/,
         use: {
           loader: "babel-loader",
           options: {
