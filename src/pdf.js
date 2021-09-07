@@ -1,4 +1,4 @@
-import * as pdfjs from "pdfjs-dist/legacy/build/pdf.js";
+import * as pdfjs from "pdfjs-dist/es5/build/pdf.js";
 
 const Worker = require("worker-loader?esModule=false&filename=[name].js!./pdf.worker.js");
 
